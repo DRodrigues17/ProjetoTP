@@ -1,8 +1,8 @@
 package br.com.fundatec.locadoraveiculo.telas;
 
-import br.com.fundatec.locadoraveiculo.bancoDeDados.DadosClientes;
-import br.com.fundatec.locadoraveiculo.bancoDeDados.DadosLocacao;
-import br.com.fundatec.locadoraveiculo.bancoDeDados.DadosVeiculos;
+import br.com.fundatec.locadoraveiculo.bancodedados.DadosClientes;
+import br.com.fundatec.locadoraveiculo.bancodedados.DadosLocacao;
+import br.com.fundatec.locadoraveiculo.bancodedados.DadosVeiculos;
 import br.com.fundatec.locadoraveiculo.enums.SituacaoLocacao;
 import br.com.fundatec.locadoraveiculo.model.Cliente;
 import br.com.fundatec.locadoraveiculo.model.Locacao;
@@ -14,7 +14,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class TelaDeLocacoes {
+public class TelaLocacoes {
 
     Scanner t = new Scanner(System.in);
     public void MostrarTelaLocacoes() {

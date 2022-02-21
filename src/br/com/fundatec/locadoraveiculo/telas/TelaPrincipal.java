@@ -24,17 +24,17 @@ public class TelaPrincipal {
             switch (resposta) {
                 case 1 -> {
                     System.out.println("apresentando a tela de veiculos");
-                    TelaDeVeiculos telaDeVeículos = new TelaDeVeiculos();
+                    TelaVeiculos telaDeVeículos = new TelaVeiculos();
                     telaDeVeículos.MostrarTelaVeiculos();
                 }
                 case 2 -> {
                     System.out.println("apresentando a tela de clientes");
-                    TelaDeClientes telaDeClientes = new TelaDeClientes();
+                    TelaClientes telaDeClientes = new TelaClientes();
                     telaDeClientes.MostrarTelaClientes();
                 }
                 case 3 -> {
                       System.out.println("apresentando a tela de locacoes");
-                    TelaDeLocacoes telaDeLocacoes = new TelaDeLocacoes();
+                    TelaLocacoes telaDeLocacoes = new TelaLocacoes();
                     telaDeLocacoes.MostrarTelaLocacoes();
                 }
                 case 0 -> {

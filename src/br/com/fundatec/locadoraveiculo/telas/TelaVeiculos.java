@@ -1,13 +1,13 @@
 package br.com.fundatec.locadoraveiculo.telas;
 
-import br.com.fundatec.locadoraveiculo.bancoDeDados.DadosVeiculos;
+import br.com.fundatec.locadoraveiculo.bancodedados.DadosVeiculos;
 import br.com.fundatec.locadoraveiculo.enums.TipoCarro;
 import br.com.fundatec.locadoraveiculo.model.Veiculo;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class TelaDeVeiculos {
+public class TelaVeiculos {
 
     Scanner t = new Scanner(System.in);
     private DadosVeiculos dadosVeiculos = DadosVeiculos.criar();

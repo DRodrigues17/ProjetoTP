@@ -1,6 +1,6 @@
 package br.com.fundatec.locadoraveiculo.telas;
 
-import br.com.fundatec.locadoraveiculo.bancoDeDados.DadosClientes;
+import br.com.fundatec.locadoraveiculo.bancodedados.DadosClientes;
 import br.com.fundatec.locadoraveiculo.enums.TipoDocumento;
 import br.com.fundatec.locadoraveiculo.enums.TipoPessoa;
 import br.com.fundatec.locadoraveiculo.model.Cliente;
@@ -9,7 +9,7 @@ import br.com.fundatec.locadoraveiculo.model.Endereco;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class TelaDeClientes {
+public class TelaClientes {
 
     private Scanner t = new Scanner(System.in);
     private DadosClientes dadosClientes = DadosClientes.criar();
