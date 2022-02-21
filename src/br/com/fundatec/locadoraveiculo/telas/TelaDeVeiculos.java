@@ -42,7 +42,7 @@ public class TelaDeVeiculos {
                     Double valorDiaria = this.lerDouble();
                     System.out.println("qual o tipo de carro?");
                     System.out.println("os tipos de carro são  HATCH, SEDAN, SUV, PICKUP e COUPE");
-                    var tipoCarro = this.lerTipoVeiculo();
+                    var tipoCarro = this.lerTipoCarro();
                     this.cadastrarVeiculo(placa, marca, modelo, quilometragem, valorKmRodado, valorDiaria, tipoCarro);
                 }
                 case 2 -> {
@@ -75,14 +75,14 @@ public class TelaDeVeiculos {
             System.out.println("ainda não existe nenhum veiculo cadastrado");
         }
     }
-    private TipoCarro lerTipoVeiculo() {
+    private TipoCarro lerTipoCarro() {
         while (true) {
             try {
-                String tipoVeiculo = t.next();
-                return TipoCarro.valueOf(tipoVeiculo.toUpperCase());
+                String tipoCarro = t.next();
+                return TipoCarro.valueOf(tipoCarro.toUpperCase());
             } catch (IllegalArgumentException excecao) {
                 System.out.println(
-                        "!!!Tipo de veículo inválido. Digite uma das opções válidas. (HATCH, SEDAN, SUV, PICKUP)!!!");
+                        "Tipo de veículo inválido, digite uma das opções válidas. (HATCH, SEDAN, SUV ou PICKUP)");
             }
         }
     }
@@ -91,7 +91,7 @@ public class TelaDeVeiculos {
         while (true) {
             try {
                 return t.nextDouble();
-            } catch (IllegalArgumentException excecao) {
+            } catch (InputMismatchException excecao) {
                 t.nextLine();
                 System.out.println("!!!Digite um valor válido!!!");
             }
@@ -102,7 +102,7 @@ public class TelaDeVeiculos {
         while (true) {
             try {
                 return t.next();
-            } catch (IllegalArgumentException excecao) {
+            } catch (InputMismatchException excecao) {
                 t.nextLine();
                 System.out.println("!!!Digite uma opção válida!!!");
             }

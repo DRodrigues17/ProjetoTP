@@ -9,14 +9,14 @@ public class Locacao {
     private Veiculo veiculo;
     private LocalDate dataLocacao;
     private LocalDate dataEntrega = null;
-    private BigDecimal valor = null;
+    private BigDecimal valor;
     private SituacaoLocacao situacaoLocacao;
 
     public Locacao(Cliente cliente, Veiculo veiculo, LocalDate dataLocacao, SituacaoLocacao situacaoLocacao) {
         this.cliente = cliente;
         this.veiculo = veiculo;
         this.dataLocacao = dataLocacao;
-        this.situacaoLocacao = situacaoLocacao;
+        this.situacaoLocacao = SituacaoLocacao.ATIVA;
     }
 
     public Cliente getCliente() {

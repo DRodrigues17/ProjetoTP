@@ -30,55 +30,52 @@ public class TelaDeClientes {
             switch (resposta) {
                 case 1 -> {
                     System.out.println("esse cliente é uma pessoa fisica ou juridica?");
-                    var tipoPessoa = TipoPessoa.valueOf(t.next().toUpperCase());
-                    String razaoSocial;
+                    var tipoPessoa = this.lerTipoPessoa();
+                    String razaoSocial = "";
                     long cnpj;
                     if (tipoPessoa.equals(TipoPessoa.JURIDICA)){
                         System.out.println("qual a sua razao social");
-                        t.nextLine();
-                        razaoSocial = t.nextLine();
+                        this.lerString();
                         System.out.println("qual o seu CNPJ");
-                        cnpj = t.nextLong();
+                        cnpj = this.lerLong();
                         System.out.println("qual o numero do estabelecimento");
-                        int numeroCasa = t.nextInt();
-                        t.nextLine();
+                        int numeroCasa = this.lerInt();
                         System.out.println("qual a rua em que ele se localiza??");
-                        String logradouro = t.nextLine();
+                        String logradouro = this.lerString();
                         System.out.println("Informe algum complemento");
-                        String complemento = t.nextLine();
+                        String complemento = this.lerString();
                         System.out.println("qual o bairro?");
-                        String bairro = t.nextLine();
+                        String bairro = this.lerString();
                         System.out.println("qual a cidade?");
-                        String cidade = t.nextLine();
+                        String cidade = this.lerString();
                         System.out.println("qual a UF?");
-                        String uf = t.next().toUpperCase();
+                        String uf = this.lerString();
                         System.out.println("qual o CEP?");
-                        Long cep = t.nextLong();
+                        Long cep = this.lerLong();
                         Endereco endereco = new Endereco(logradouro, numeroCasa, complemento, bairro, cidade, uf, cep);
                         this.cadastrarClienteJuridico( razaoSocial, cnpj, endereco);
                     } else if (tipoPessoa.equals(TipoPessoa.FISICA)) {
                         System.out.println("qual o nome do cliente a ser cadastrado?");
                         t.nextLine();
-                        String nome = t.nextLine();
+                        String nome = this.lerString();
                         System.out.println("qual o tipo do seu documento? CPF, CNH ou RG?");
-                        var tipoDocumento = TipoDocumento.valueOf(t.next().toUpperCase());
+                        var tipoDocumento = this.lerTipoDocumento();
                         System.out.println("qual o numero do seu documento?");
-                        Long documento = t.nextLong();
+                        Long documento = this.lerLong();
                         System.out.println("qual o numero da casa?");
-                        int numeroCasa = t.nextInt();
-                        t.nextLine();
+                        int numeroCasa = this.lerInt();
                         System.out.println("qual a rua?");
-                        String logradouro = t.nextLine();
+                        String logradouro = this.lerString();
                         System.out.println("Informe algum complemento");
-                        String complemento = t.nextLine();
+                        String complemento = this.lerString();
                         System.out.println("qual o bairro?");
-                        String bairro = t.nextLine();
+                        String bairro = this.lerString();
                         System.out.println("qual a cidade?");
-                        String cidade = t.nextLine();
+                        String cidade = this.lerString();
                         System.out.println("qual a UF?");
-                        String uf = t.next().toUpperCase();
+                        String uf = this.lerString();
                         System.out.println("qual o CEP?");
-                        Long cep = t.nextLong();
+                        Long cep = this.lerLong();
                         Endereco endereco = new Endereco(logradouro, numeroCasa, complemento, bairro, cidade, uf, cep);
                         this.cadastrarCliente(nome, tipoDocumento, documento, endereco);
                     }
@@ -113,6 +110,61 @@ public class TelaDeClientes {
         }
         if (dadosClientes.getClientes().isEmpty()){
             System.out.println("ainda não existe nenhum cliente cadastrado");
+        }
+    }
+    private TipoPessoa lerTipoPessoa() {
+        while (true) {
+            try {
+                String tipoPessoa = t.next();
+                return TipoPessoa.valueOf(tipoPessoa.toUpperCase());
+            } catch (IllegalArgumentException excecao) {
+                System.out.println(
+                        "Tipo de pessoa invalida, digite uma das opções válidas. (FISICA ou JURIDICA)");
+            }
+        }
+    }
+    private TipoDocumento lerTipoDocumento() {
+        while (true) {
+            try {
+                String tipoDocumento = t.next();
+                return TipoDocumento.valueOf(tipoDocumento.toUpperCase());
+            } catch (IllegalArgumentException excecao) {
+                System.out.println(
+                        "Tipo de documento inválido, digite uma das opções válidas. (CPF, CNH ou RG)");
+            }
+        }
+    }
+
+    private  int lerInt(){
+        while (true) {
+            try {
+                return t.nextInt();
+            } catch (InputMismatchException excecao) {
+                t.nextLine();
+                System.out.println("!!!Digite um valor válido!!!");
+            }
+        }
+    }
+
+    private Long lerLong() {
+        while (true) {
+            try {
+                return t.nextLong();
+            } catch (InputMismatchException excecao) {
+                t.nextLine();
+                System.out.println("!!!Digite um valor válido!!!");
+            }
+        }
+    }
+
+    private String lerString(){
+        while (true) {
+            try {
+                return t.next();
+            } catch (InputMismatchException excecao) {
+                t.nextLine();
+                System.out.println("!!!Digite uma opção válida!!!");
+            }
         }
     }
 }
