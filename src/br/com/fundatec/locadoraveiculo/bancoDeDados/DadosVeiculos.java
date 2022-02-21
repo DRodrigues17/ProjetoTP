@@ -25,4 +25,6 @@ public class DadosVeiculos {
     }
 
     public List<Veiculo> getVeiculos() {return veiculos;}
+
+    public Veiculo getVeiculoId(int i){return veiculos.get(i);}
 }

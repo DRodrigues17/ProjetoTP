@@ -11,7 +11,8 @@ public class TelaDeVeiculos {
 
     Scanner t = new Scanner(System.in);
     private DadosVeiculos dadosVeiculos = DadosVeiculos.criar();
-    public void MostrarTelaVeiculos(){
+
+    public void MostrarTelaVeiculos() {
         boolean decisão = true;
         while (decisão) {
             int resposta = 0;
@@ -27,51 +28,86 @@ public class TelaDeVeiculos {
             }
             switch (resposta) {
                 case 1 -> {
-                    System.out.println("cadastrando veiculo");
                     System.out.println("qual a placa do carro?");
-                    String placa = t.next();
+                    String placa = this.lerString();
                     System.out.println("qual a marca do carro?");
-                    String marca = t.next();
+                    String marca = this.lerString();
                     System.out.println("qual o modelo do veiculo?");
-                    String modelo = t.next();
+                    String modelo = this.lerString();
                     System.out.println("qual a sua quilometragem?");
-                    Double quilometragem = t.nextDouble();
+                    Double quilometragem = this.lerDouble();
                     System.out.println("qual o valor por quilometro rodado");
-                    Double valorKmRodado = t.nextDouble();
+                    Double valorKmRodado = this.lerDouble();
                     System.out.println("qual o valor da diária?");
-                    Double valorDiaria = t.nextDouble();
+                    Double valorDiaria = this.lerDouble();
                     System.out.println("qual o tipo de carro?");
                     System.out.println("os tipos de carro são  HATCH, SEDAN, SUV, PICKUP e COUPE");
-                    var tipoCarro = TipoCarro.valueOf(t.next().toUpperCase());
-                   this.cadastrarVeiculo(placa, marca,modelo, quilometragem, valorKmRodado, valorDiaria, tipoCarro);
+                    var tipoCarro = this.lerTipoVeiculo();
+                    this.cadastrarVeiculo(placa, marca, modelo, quilometragem, valorKmRodado, valorDiaria, tipoCarro);
                 }
                 case 2 -> {
                     System.out.println("lista de veiculos");
                     this.listarVeiculos();
                 }
-                case 0 ->{
+                case 0 -> {
                     System.out.println("retornando à tela principal");
                     return;
                 }
-                default->{
+                default -> {
                     System.out.println("Opção inválida, digite novamente.");
                     break;
                 }
             }
         }
     }
+
     public void cadastrarVeiculo(String placa, String marca, String modelo, double quilometragem, double valorKmRodado,
                                  double valorDiaria, TipoCarro tipoCarro) {
-            dadosVeiculos.adicionar(new Veiculo(placa, marca, modelo, quilometragem, valorKmRodado, valorDiaria, tipoCarro));
-        }
+        dadosVeiculos.adicionar(new Veiculo(placa, marca, modelo, quilometragem, valorKmRodado, valorDiaria, tipoCarro));
+    }
 
-        public void listarVeiculos() {
-            for (Veiculo elemento : dadosVeiculos.getVeiculos()){
-                System.out.println("as informações do veículo são placa, marca, modelo, quilometragem, valor km rodado, valor por diaria, tipo de carro");
-                System.out.println(elemento.getPlaca()+", "+elemento.getMarca()+", "+elemento.getModelo()+", "+elemento.getQuilometragem()+", "+ elemento.getValorKmRodado()+", "+elemento.getValorDiaria()+", "+ elemento.getTipoCarro());
-            }
-            if (dadosVeiculos.getVeiculos().isEmpty()){
-                System.out.println("ainda não existe nenhum veiculo cadastrado");
+    public void listarVeiculos() {
+        for (Veiculo elemento : dadosVeiculos.getVeiculos()) {
+            System.out.println("a seguir, a lista de veiculos");
+            System.out.println(elemento.toString());
+        }
+        if (dadosVeiculos.getVeiculos().isEmpty()) {
+            System.out.println("ainda não existe nenhum veiculo cadastrado");
+        }
+    }
+
+    public TipoCarro lerTipoVeiculo() {
+        while (true) {
+            try {
+                String tipo = t.next();
+                return TipoCarro.valueOf(tipo.toUpperCase());
+            } catch (IllegalArgumentException excecao) {
+                System.out.println(
+                        "!!!Tipo de veículo inválido. Digite uma das opções válidas. (HATCH, SEDAN, SUV, PICKUP)!!!");
             }
         }
+    }
+
+    public double lerDouble() {
+        while (true) {
+            try {
+                return t.nextDouble();
+            } catch (IllegalArgumentException excecao) {
+                t.nextLine();
+                System.out.println("!!!Digite um valor válido!!!");
+            }
+        }
+    }
+
+    public String lerString(){
+        while (true) {
+            try {
+
+                return t.nextLine();
+            } catch (IllegalArgumentException excecao) {
+                t.nextLine();
+                System.out.println("!!!Digite uma opção válida!!!");
+            }
+        }
+    }
 }

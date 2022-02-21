@@ -35,4 +35,12 @@ public  class Veiculo {
     public double getValorDiaria() {return valorDiaria;}
 
     public TipoCarro getTipoCarro() {return tipoCarro;}
+
+    @Override
+    public String toString() {
+        return "Veiculo{" +
+                "placa='" + placa + '\'' + ", marca='" + marca + '\'' + ", modelo='" + modelo + '\'' +
+                ", quilometragem=" + quilometragem + ", valorKmRodado=" + valorKmRodado +
+                ", valorDiaria=" + valorDiaria + ", tipoCarro=" + tipoCarro + '}';
+    }
 }

@@ -25,4 +25,6 @@ public class DadosClientes {
     }
 
     public List<Cliente> getClientes() {return clientes;}
+
+    public Cliente getClienteId(int i) {return clientes.get(i);}
 }
