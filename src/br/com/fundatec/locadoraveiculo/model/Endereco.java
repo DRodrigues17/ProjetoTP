@@ -7,10 +7,10 @@ public class Endereco {
     private String bairro;
     private String cidade;
     private String uf;
-    private int cep;
+    private Long cep;
 
     public Endereco(String logradouro, int numeroCasa, String complemento,
-                    String bairro, String cidade, String uf, int cep) {
+                    String bairro, String cidade, String uf, Long cep) {
         this.logradouro = logradouro;
         this.numeroCasa = numeroCasa;
         this.complemento = complemento;
@@ -32,7 +32,7 @@ public class Endereco {
 
     public String getUf() {return uf;}
 
-    public int getCep() {return cep;}
+    public Long getCep() {return cep;}
 
 
 }

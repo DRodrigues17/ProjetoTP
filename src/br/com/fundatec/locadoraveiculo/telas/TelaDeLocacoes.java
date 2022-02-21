@@ -33,15 +33,14 @@ public class TelaDeLocacoes {
             }
             switch (resposta) {
                 case 1 -> {
-
-                    //this.cadastrarLocacao();
+                    this.cadastrarLocacao();
                 }
                 case 2 -> {
                  //  this.encerrarLocacao();
                     System.out.println("encerrando locacao");
                 }
                 case 3 -> {
-                //    this.listarLocacoes();
+                    this.listarLocacoes();
                 }
                 case 0 -> {
                     System.out.println("retornando à tela principal");
@@ -78,8 +77,7 @@ public class TelaDeLocacoes {
                     String.format(linha, "Num", "Placa", "Marca", "Modelo", "Tipo", "Km", "Valor Km", "Valor Diária"));
             for (int i = 1; i <= veiculos.size(); i++) {
                 Veiculo veiculo = veiculos.get(i - 1);
-                System.out.println(String.format(linha,
-                        i, veiculo.toString();
+                System.out.println(String.format(linha, i, veiculo.toString()));
             }
         }
         System.out.println("Selecione um veículo.");
@@ -99,8 +97,7 @@ public class TelaDeLocacoes {
                     String.format(linha, "Num", "Nome", "Tipo Documento", "Número documento", "CNPJ", "Razão Social", "Endereço"));
             for (int i = 1; i <= clientes.size(); i++) {
                 Cliente cliente = clientes.get(i - 1);
-                System.out.println(String.format(linha,
-                        i, cliente.toString());
+                System.out.println(String.format(linha, i, cliente.toString()));
             }
         }
         System.out.println("Indique o cliente que realizará a locação.");
@@ -111,9 +108,9 @@ public class TelaDeLocacoes {
 
     private void listarLocacoes() {
         DadosLocacao dadosLocacao = DadosLocacao.criar();
-        List<Locacao>  locacoes = DadosLocacao.getLocacoes();
+        List<Locacao>  locacoes = dadosLocacao.getLocacoes();
         if (locacoes.isEmpty()) {
-            System.out.println("Ainda não foram cadastrados locacoes");
+            System.out.println("Ainda não foram cadastradas locacoes");
         } else {
             for (int i = 1; i <= locacoes.size(); i++) {
                 Locacao locacao = locacoes.get(i - 1);

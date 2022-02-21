@@ -53,7 +53,7 @@ public class TelaDeClientes {
                         System.out.println("qual a UF?");
                         String uf = t.next().toUpperCase();
                         System.out.println("qual o CEP?");
-                        int cep = t.nextInt();
+                        Long cep = t.nextLong();
                         Endereco endereco = new Endereco(logradouro, numeroCasa, complemento, bairro, cidade, uf, cep);
                         this.cadastrarClienteJuridico( razaoSocial, cnpj, endereco);
                     } else if (tipoPessoa.equals(TipoPessoa.FISICA)) {
@@ -78,7 +78,7 @@ public class TelaDeClientes {
                         System.out.println("qual a UF?");
                         String uf = t.next().toUpperCase();
                         System.out.println("qual o CEP?");
-                        int cep = t.nextInt();
+                        Long cep = t.nextLong();
                         Endereco endereco = new Endereco(logradouro, numeroCasa, complemento, bairro, cidade, uf, cep);
                         this.cadastrarCliente(nome, tipoDocumento, documento, endereco);
                     }

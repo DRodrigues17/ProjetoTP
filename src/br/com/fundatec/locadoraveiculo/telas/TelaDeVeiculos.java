@@ -75,12 +75,11 @@ public class TelaDeVeiculos {
             System.out.println("ainda não existe nenhum veiculo cadastrado");
         }
     }
-
-    public TipoCarro lerTipoVeiculo() {
+    private TipoCarro lerTipoVeiculo() {
         while (true) {
             try {
-                String tipo = t.next();
-                return TipoCarro.valueOf(tipo.toUpperCase());
+                String tipoVeiculo = t.next();
+                return TipoCarro.valueOf(tipoVeiculo.toUpperCase());
             } catch (IllegalArgumentException excecao) {
                 System.out.println(
                         "!!!Tipo de veículo inválido. Digite uma das opções válidas. (HATCH, SEDAN, SUV, PICKUP)!!!");
@@ -88,7 +87,7 @@ public class TelaDeVeiculos {
         }
     }
 
-    public double lerDouble() {
+    private double lerDouble() {
         while (true) {
             try {
                 return t.nextDouble();
@@ -99,11 +98,10 @@ public class TelaDeVeiculos {
         }
     }
 
-    public String lerString(){
+    private String lerString(){
         while (true) {
             try {
-
-                return t.nextLine();
+                return t.next();
             } catch (IllegalArgumentException excecao) {
                 t.nextLine();
                 System.out.println("!!!Digite uma opção válida!!!");
