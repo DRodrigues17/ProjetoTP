@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class TelaDeLocacoes {
 
-    public static void MostrarTelaLocacoes(){
+    public static void MostrarTelaLocacoes() {
         Scanner t = new Scanner(System.in);
         boolean decisão = true;
         while (decisão) {
@@ -23,32 +23,48 @@ public class TelaDeLocacoes {
             }
             switch (resposta) {
                 case 1 -> {
-                    System.out.println("cadastrando nova locacao");
-                    //   this.cadastrarLocacao();
+
+                    this.cadastrarLocacao();
                 }
                 case 2 -> {
+                    this.encerrarLocacao();
                     System.out.println("encerrando locacao");
                 }
                 case 3 -> {
-                    System.out.println("listando locacoes");
-                    //   this.listarLocacoes();
+                    this.listarLocacoes();
                 }
                 case 0 -> {
                     System.out.println("retornando à tela principal");
                     return;
                 }
-                default->{
+                default -> {
                     System.out.println("Opção inválida, digite novamente.");
                     break;
                 }
             }
         }
-//        public void cadastrarLocacao() {
-//
-//        }
-//
-//        public void listarLocacoes() {
-//
-//        }
     }
+
+    public void cadastrarLocacao() {
+        TelaDeVeiculos telaDeVeiculos = new TelaDeVeiculos();
+        telaDeVeiculos.listarVeiculos();
+    }
+
+    public void encerrarLocacao() {
+
+    }
+
+    public void listarLocacoes() {
+
+    }
+
 }
+// while(true){
+//
+// try{
+// String tipo = t.lerString ("tipo");
+// return TipoVeiculo.valueOf(tipo.toUpperCase();
+// } catch (illegalArgumentException excecao) {
+//sout "informacao invalida"
+//}
+//}

@@ -29,42 +29,59 @@ public class TelaDeClientes {
             }
             switch (resposta) {
                 case 1 -> {
-                    System.out.println("qual o nome do cliente a ser cadastrado?");
-                    t.nextLine();
-                    String nome = t.nextLine();
                     System.out.println("esse cliente é uma pessoa fisica ou juridica?");
-                    System.out.println("PESSOA_FISICA ou PESSOA_JURIDICA? digite tal como lhe foi mostrado");
-                    var tipoPessoa = TipoPessoa.valueOf(t.next());
+                    var tipoPessoa = TipoPessoa.valueOf(t.next().toUpperCase());
                     String razaoSocial;
-                    if (tipoPessoa.equals(TipoPessoa.PESSOA_JURIDICA)){
+                    long cnpj;
+                    if (tipoPessoa.equals(TipoPessoa.JURIDICA)){
                         System.out.println("qual a sua razao social");
                         t.nextLine();
                         razaoSocial = t.nextLine();
-                    } else{
-                        razaoSocial = "NAO TEM";
+                        System.out.println("qual o seu CNPJ");
+                        cnpj = t.nextLong();
+                        System.out.println("qual o numero do estabelecimento");
+                        int numeroCasa = t.nextInt();
+                        t.nextLine();
+                        System.out.println("qual a rua em que ele se localiza??");
+                        String logradouro = t.nextLine();
+                        System.out.println("Informe algum complemento");
+                        String complemento = t.nextLine();
+                        System.out.println("qual o bairro?");
+                        String bairro = t.nextLine();
+                        System.out.println("qual a cidade?");
+                        String cidade = t.nextLine();
+                        System.out.println("qual a UF?");
+                        String uf = t.next().toUpperCase();
+                        System.out.println("qual o CEP?");
+                        int cep = t.nextInt();
+                        Endereco endereco = new Endereco(logradouro, numeroCasa, complemento, bairro, cidade, uf, cep);
+                        this.cadastrarClienteJuridico( razaoSocial, cnpj, endereco);
+                    } else if (tipoPessoa.equals(TipoPessoa.FISICA)) {
+                        System.out.println("qual o nome do cliente a ser cadastrado?");
+                        t.nextLine();
+                        String nome = t.nextLine();
+                        System.out.println("qual o tipo do seu documento? CPF, CNH ou RG?");
+                        var tipoDocumento = TipoDocumento.valueOf(t.next().toUpperCase());
+                        System.out.println("qual o numero do seu documento?");
+                        Long documento = t.nextLong();
+                        System.out.println("qual o numero da casa?");
+                        int numeroCasa = t.nextInt();
+                        t.nextLine();
+                        System.out.println("qual a rua?");
+                        String logradouro = t.nextLine();
+                        System.out.println("Informe algum complemento");
+                        String complemento = t.nextLine();
+                        System.out.println("qual o bairro?");
+                        String bairro = t.nextLine();
+                        System.out.println("qual a cidade?");
+                        String cidade = t.nextLine();
+                        System.out.println("qual a UF?");
+                        String uf = t.next().toUpperCase();
+                        System.out.println("qual o CEP?");
+                        int cep = t.nextInt();
+                        Endereco endereco = new Endereco(logradouro, numeroCasa, complemento, bairro, cidade, uf, cep);
+                        this.cadastrarCliente(nome, tipoDocumento, documento, endereco);
                     }
-                    System.out.println("qual o tipo do seu documento?");
-                    System.out.println("CPF, CNPJ ou RG?");
-                    var tipoDocumento = TipoDocumento.valueOf(t.next());
-                    System.out.println("qual o numero do seu documento?");
-                    Long documento = t.nextLong();
-                    System.out.println("qual o numero da casa?");
-                    int numeroCasa = t.nextInt();
-                    t.nextLine();
-                    System.out.println("qual o endereco do cliente ?");
-                    String logradouro = t.nextLine();
-                    System.out.println("Informe algum complemento");
-                    String complemento = t.nextLine();
-                    System.out.println("qual o bairro?");
-                    String bairro = t.nextLine();
-                    System.out.println("qual a cidade?");
-                    String cidade = t.nextLine();
-                    System.out.println("qual a UF ?");
-                    String uf = t.next().toUpperCase();
-                    System.out.println("qual o CEP?");
-                    int cep = t.nextInt();
-                    Endereco endereco = new Endereco(logradouro, numeroCasa, complemento, bairro, cidade, uf, cep);
-                    this.cadastrarCliente(nome, tipoPessoa, tipoDocumento, documento, razaoSocial, endereco);
                 }
                 case 2 -> {
                     System.out.println("lista de clientes");
@@ -82,19 +99,20 @@ public class TelaDeClientes {
         }
 
     }
-    public void cadastrarCliente(String nomeCliente, TipoPessoa tipoPessoa, TipoDocumento tipoDocumento, Long documento,
-                                 String razaoSocial, Endereco endereco) {
-        dadosClientes.adicionar(new Cliente(nomeCliente, tipoPessoa, tipoDocumento, documento, razaoSocial, endereco));
+    public void cadastrarCliente(String nomeCliente, TipoDocumento tipoDocumento, Long documento,
+                                 Endereco endereco) {
+        dadosClientes.adicionar(new Cliente(nomeCliente, tipoDocumento, documento, endereco));
+    }
+    public void cadastrarClienteJuridico( String razaoSocial, Long cnpj, Endereco endereco){
+       dadosClientes.adicionar(new Cliente(razaoSocial, cnpj, endereco));
     }
     public void listarClientes() {
         for (Cliente elemento : dadosClientes.getClientes()){
-            System.out.println("as informacoes a seguir sao, nome do cliente, tipo de pessoa, tipo de documento, " +
-                    "documento, razao social, do cliente e endereco do cliente");
-            System.out.println(elemento.getNome()+", "+elemento.getTipoPessoa()+", "+elemento.getTipoDocumento()+", "+
-                    elemento.getDocumento()+", "+elemento.getRazaoSocial()+", "+elemento.getEndereco().getLogradouro()
-                    +", "+elemento.getEndereco().getNumeroCasa()+", "+elemento.getEndereco().getComplemento()
-                    +", "+elemento.getEndereco().getBairro()+", "+elemento.getEndereco().getCidade()
-                    +", "+elemento.getEndereco().getUf()+", "+elemento.getEndereco().getCep());
+            System.out.println("a seguir, a lista de clientes com suas informacoes");
+            System.out.println(elemento.toString());
+        }
+        if (dadosClientes.getClientes().isEmpty()){
+            System.out.println("ainda não existe nenhum cliente cadastrado");
         }
     }
 }

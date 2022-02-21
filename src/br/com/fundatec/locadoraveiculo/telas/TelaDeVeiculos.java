@@ -42,7 +42,7 @@ public class TelaDeVeiculos {
                     Double valorDiaria = t.nextDouble();
                     System.out.println("qual o tipo de carro?");
                     System.out.println("os tipos de carro são  HATCH, SEDAN, SUV, PICKUP e COUPE");
-                    var tipoCarro = TipoCarro.valueOf(t.next());
+                    var tipoCarro = TipoCarro.valueOf(t.next().toUpperCase());
                    this.cadastrarVeiculo(placa, marca,modelo, quilometragem, valorKmRodado, valorDiaria, tipoCarro);
                 }
                 case 2 -> {
@@ -69,6 +69,9 @@ public class TelaDeVeiculos {
             for (Veiculo elemento : dadosVeiculos.getVeiculos()){
                 System.out.println("as informações do veículo são placa, marca, modelo, quilometragem, valor km rodado, valor por diaria, tipo de carro");
                 System.out.println(elemento.getPlaca()+", "+elemento.getMarca()+", "+elemento.getModelo()+", "+elemento.getQuilometragem()+", "+ elemento.getValorKmRodado()+", "+elemento.getValorDiaria()+", "+ elemento.getTipoCarro());
+            }
+            if (dadosVeiculos.getVeiculos().isEmpty()){
+                System.out.println("ainda não existe nenhum veiculo cadastrado");
             }
         }
 }
