@@ -53,6 +53,10 @@ public class Locacao {
         this.valor = diarias.multiply(valorDiaria).add(km.multiply(valorKm));
 
         veiculo.alterarQuilometragem(kmAtual);
+        System.out.println(" a diferenca na quilometragem e " + diferenca);
+        System.out.println("o numero de diarias e " + diarias);
+        System.out.println("o valor por diaria é " + valorDiaria);
+        System.out.println("o valor por quilometragem é " + valorKm);
         System.out.println(" a locacao esta encerrada e seu valor é " + valor);
     }
 
