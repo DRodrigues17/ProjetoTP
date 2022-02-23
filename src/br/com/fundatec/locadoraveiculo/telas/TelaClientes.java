@@ -14,13 +14,13 @@ public class TelaClientes {
     private Scanner t = new Scanner(System.in);
     private DadosClientes dadosClientes = DadosClientes.criar();
     public void MostrarTelaClientes(){
-        boolean decisão = true;
-        while (decisão) {
+        boolean decisao = true;
+        while (decisao) {
             int resposta = 0;
-            System.out.println("opção 1: cadastrar Clientes (Pessoa Física ou Pessoa Jurídica)");
-            System.out.println("opção 2: listar Clientes");
-            System.out.println("opção 0: retornar ao Menu Principal");
-            System.out.println("diga o número da opção escolhida");
+            System.out.println("opcao 1: cadastrar Clientes (Pessoa Fisica ou Pessoa Juridica)");
+            System.out.println("opcao 2: listar Clientes");
+            System.out.println("opcao 0: retornar ao Menu Principal");
+            System.out.println("diga o numero da opcao escolhida");
             try {
                 resposta = t.nextInt();
             } catch (InputMismatchException excecao) {
@@ -28,8 +28,8 @@ public class TelaClientes {
                 resposta = 4;
             }
             switch (resposta) {
-                case 1 -> {
-                    System.out.println("esse cliente é uma pessoa fisica ou juridica?");
+                case 1 :
+                    System.out.println("esse cliente e uma pessoa fisica ou juridica?");
                     var tipoPessoa = this.lerTipoPessoa();
                     String razaoSocial = "";
                     long cnpj;
@@ -79,19 +79,17 @@ public class TelaClientes {
                         Endereco endereco = new Endereco(logradouro, numeroCasa, complemento, bairro, cidade, uf, cep);
                         this.cadastrarCliente(nome, tipoDocumento, documento, endereco);
                     }
-                }
-                case 2 -> {
+                    break;
+                case 2 :
                     System.out.println("lista de clientes");
                     this.listarClientes();
-                }
-                case 0 -> {
-                    System.out.println("retornando à tela principal");
-                    return;
-                }
-                default->{
-                    System.out.println("Opção inválida, digite novamente.");
                     break;
-                }
+                case 0 :
+                    System.out.println("retornando a tela principal");
+                    return;
+                default :
+                    System.out.println("Opcao invalida, digite novamente.");
+                    break;
             }
         }
 
@@ -118,7 +116,7 @@ public class TelaClientes {
                 String tipoPessoa = t.next();
                 return TipoPessoa.valueOf(tipoPessoa.toUpperCase());
             } catch (IllegalArgumentException excecao) {
-                System.out.println(
+                System.err.println(
                         "Tipo de pessoa invalida, digite uma das opções válidas. (FISICA ou JURIDICA)");
             }
         }
@@ -129,7 +127,7 @@ public class TelaClientes {
                 String tipoDocumento = t.next();
                 return TipoDocumento.valueOf(tipoDocumento.toUpperCase());
             } catch (IllegalArgumentException excecao) {
-                System.out.println(
+                System.err.println(
                         "Tipo de documento inválido, digite uma das opções válidas. (CPF, CNH ou RG)");
             }
         }
@@ -141,29 +139,27 @@ public class TelaClientes {
                 return t.nextInt();
             } catch (InputMismatchException excecao) {
                 t.nextLine();
-                System.out.println("!!!Digite um valor válido!!!");
+                System.err.println("!!!Digite um valor válido!!!");
             }
         }
     }
-
     private Long lerLong() {
         while (true) {
             try {
                 return t.nextLong();
             } catch (InputMismatchException excecao) {
                 t.nextLine();
-                System.out.println("!!!Digite um valor válido!!!");
+                System.err.println("!!!Digite um valor válido!!!");
             }
         }
     }
-
     private String lerString(){
         while (true) {
             try {
                 return t.next();
             } catch (InputMismatchException excecao) {
                 t.nextLine();
-                System.out.println("!!!Digite uma opção válida!!!");
+                System.err.println("!!!Digite uma opção válida!!!");
             }
         }
     }

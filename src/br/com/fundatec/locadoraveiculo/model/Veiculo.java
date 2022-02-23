@@ -6,13 +6,13 @@ public  class Veiculo {
     private String placa;
     private String marca;
     private String modelo;
-    private double quilometragem;
-    private double valorKmRodado;
-    private double valorDiaria;
+    private Float quilometragem;
+    private Double valorKmRodado;
+    private Double valorDiaria;
     private TipoCarro tipoCarro;
 
-    public Veiculo(String placa, String marca, String modelo, double quilometragem, double valorKmRodado,
-                   double valorDiaria, TipoCarro tipoCarro) {
+    public Veiculo(String placa, String marca, String modelo, Float quilometragem, Double valorKmRodado,
+                   Double valorDiaria, TipoCarro tipoCarro) {
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
@@ -28,13 +28,17 @@ public  class Veiculo {
 
     public String getModelo() {return modelo;}
 
-    public double getQuilometragem() {return quilometragem;}
+    public Float getQuilometragem() {return quilometragem;}
 
-    public double getValorKmRodado() {return valorKmRodado;}
+    public Double getValorKmRodado() {return valorKmRodado;}
 
-    public double getValorDiaria() {return valorDiaria;}
+    public Double getValorDiaria() {return valorDiaria;}
 
     public TipoCarro getTipoCarro() {return tipoCarro;}
+
+    public void alterarQuilometragem(Float kmAtual){
+        this.quilometragem = kmAtual;
+    }
 
     @Override
     public String toString() {

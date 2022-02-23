@@ -16,16 +16,17 @@ import java.util.Scanner;
 
 public class TelaLocacoes {
 
-    Scanner t = new Scanner(System.in);
+    private Scanner t = new Scanner(System.in);
+    private DadosLocacao dadosLocacao = DadosLocacao.criar();
     public void MostrarTelaLocacoes() {
-        boolean decisão = true;
-        while (decisão) {
+        boolean decisao = true;
+        while (decisao) {
             int resposta = 0;
-            System.out.println("opção 1: cadastrar Locações");
-            System.out.println("opção 2: encerrar Locações");
-            System.out.println("opção 3: listar Locações");
-            System.out.println("opção 0: retornar ao Menu Principal");
-            System.out.println("diga o número da opção escolhida");
+            System.out.println("opcao 1: cadastrar Locacoes");
+            System.out.println("opcao 2: encerrar Locacoes");
+            System.out.println("opcao 3: listar Locacoes");
+            System.out.println("opcao 0: retornar ao Menu Principal");
+            System.out.println("diga o numero da opcao escolhida");
             try {
                 resposta = t.nextInt();
             } catch (InputMismatchException excecao) {
@@ -33,62 +34,59 @@ public class TelaLocacoes {
                 resposta = 4;
             }
             switch (resposta) {
-                case 1 -> {
+                case 1 :
                     this.cadastrarLocacao();
-                }
-                case 2 -> {
-                   this.encerrarLocacao();
-                    System.out.println("encerrando locacao");
-                }
-                case 3 -> {
-                    this.listarLocacoes();
-                }
-                case 0 -> {
-                    System.out.println("retornando à tela principal");
-                    return;
-                }
-                default -> {
-                    System.out.println("Opção inválida, digite novamente.");
                     break;
-                }
+                case 2 :
+                   this.encerrarLocacao();
+                   encerrarLocacao();
+                    break;
+                case 3 :
+                    this.listarLocacoes();
+                    break;
+                case 0 :
+                    System.out.println("retornando a tela principal");
+                    return;
+                default :
+                    System.out.println("Opcao invalida, digite novamente.");
+                    break;
             }
         }
     }
 
-    public Locacao cadastrarLocacao() {
+    public void cadastrarLocacao() {
         Veiculo veiculos = selecionarVeiculo();
         Cliente clientes = selecionarCliente();
-        System.out.println("Informe a data de locacao. (YYYY-MM-DD)");
-        String dataLocacao = this.lerString();
-        LocalDate dataLocacaoo = LocalDate.parse(dataLocacao);
-        System.out.println("qual a situacao da locacao?");
-        SituacaoLocacao situacaoLocacao = SituacaoLocacao.valueOf(t.next().toUpperCase());
-        Locacao locacao = new Locacao(clientes, veiculos, dataLocacaoo, situacaoLocacao);
-        return locacao;
+        System.out.println("Diga a data de locacao (YYYY-MM-DD)");
+        String data = this.lerString();
+        LocalDate dataLocacao = this.lerLocalDate(data);
+        dadosLocacao.adicionar(new Locacao(clientes, veiculos, dataLocacao));
     }
-    public Locacao encerrarLocacao(){
-        this.listarLocacoes();
-        System.out.println("informe a locacao que voce pretende ");
+    public void encerrarLocacao(){
+        Locacao locacao = selecionarLocacao();
+        System.out.println("qual a data de entrega (YYYY-MM-DD)");
+        String data = this.lerString();
+        LocalDate dataEntrega = this.lerLocalDate(data);
+        System.out.println("diga a atual quilometragem?");
+        Float kmAtual = this.lerFloat();
+        locacao.encerrar( dataEntrega, kmAtual);
 
     }
     private Veiculo selecionarVeiculo() {
-
         DadosVeiculos dadosVeiculos = DadosVeiculos.criar();
         List<Veiculo> veiculos = dadosVeiculos.getVeiculos();
         if (veiculos.isEmpty()) {
             System.out.println("Ainda não foram cadastrados Veiculos");
         } else {
-            String linha = "%-4s %-7s %-10s %-10s %-6s %-8s %-6s %-6s";
-            System.out.println(
-                    String.format(linha, "Num", "Placa", "Marca", "Modelo", "Tipo", "Km", "Valor Km", "Valor Diaria"));
             for (int i = 1; i <= veiculos.size(); i++) {
                 Veiculo veiculo = veiculos.get(i - 1);
-                System.out.println(String.format(linha, i, veiculo.toString()));
+                System.out.println(String.format(i + "-> "+ veiculo.toString()));
             }
         }
         System.out.println("Selecione um veículo.");
         int veiculoSelecionado = this.lerInt();
         dadosVeiculos.getVeiculoId(veiculoSelecionado);
+        System.out.println("o veiculo foi selecionado");
         return veiculos.get(veiculoSelecionado);
     }
 
@@ -98,18 +96,34 @@ public class TelaLocacoes {
         if (clientes.isEmpty()) {
             System.out.println("Ainda nao foram cadastrados clientes");
         } else {
-            String linha = "%-4s %-7s %-10s %-10s %-6s %-8s %-6s %-6s";
-            System.out.println(
-                    String.format(linha, "Num", "Nome", "Tipo Documento", "Número documento", "CNPJ", "Razão Social", "Endereco"));
             for (int i = 1; i <= clientes.size(); i++) {
                 Cliente cliente = clientes.get(i - 1);
-                System.out.println(String.format(linha, i, cliente.toString()));
+                System.out.println(String.format(i + "-> "+ cliente.toString()));
             }
         }
         System.out.println("Indique o cliente que realizara a locação.");
         int cliente = this.lerInt();
         dadosClientes.getClienteId(cliente);
+        System.out.println("o cliente foi selecionado");
         return clientes.get(cliente);
+    }
+
+    private Locacao selecionarLocacao() {
+        DadosLocacao dadosLocacao = DadosLocacao.criar();
+        List<Locacao> locacoes = dadosLocacao.getLocacoes();
+        if (locacoes.isEmpty()) {
+            System.out.println("Ainda nao foram cadastradas locacoes");
+        } else {
+            for (int i = 1; i <= locacoes.size(); i++) {
+                Locacao locacao = locacoes.get(i - 1);
+                System.out.println(String.format(i + "-> "+ locacao.toString()));
+            }
+        }
+        System.out.println("selecione a locacao a ser encerrada");
+        int locacao = this.lerInt();
+        dadosLocacao.getLocacaoId(locacao);
+        System.out.println("a locacao foi selecionada");
+        return locacoes.get(locacao);
     }
 
     private void listarLocacoes() {
@@ -124,24 +138,13 @@ public class TelaLocacoes {
             }
         }
     }
-
-    private BigDecimal lerBigDecimal(){
-        while (true) {
-            try {
-                return t.nextBigDecimal();
-            } catch (InputMismatchException excecao) {
-                t.nextLine();
-                System.out.println("!!!Digite um valor válido!!!");
-            }
-        }
-    }
-    private LocalDate lerLocalDate(){
+    private LocalDate lerLocalDate(String dataLocacao){
         while (true) {
             try {
                 return LocalDate.parse(dataLocacao);
             } catch (InputMismatchException excecao) {
                 t.nextLine();
-                System.out.println("!!!Digite um valor válido!!!");
+                System.err.println("digite uma data valida");
             }
         }
     }
@@ -151,7 +154,17 @@ public class TelaLocacoes {
                 return t.nextInt();
             } catch (InputMismatchException excecao) {
                 t.nextLine();
-                System.out.println("!!!Digite um valor válido!!!");
+                System.err.println("!!!Digite um valor válido!!!");
+            }
+        }
+    }
+    private float lerFloat() {
+        while (true) {
+            try {
+                return t.nextFloat();
+            } catch (InputMismatchException excecao) {
+                t.nextLine();
+                System.err.println("!!!Digite um valor valido!!!");
             }
         }
     }
@@ -161,7 +174,7 @@ public class TelaLocacoes {
                 return t.next();
             } catch (InputMismatchException excecao) {
                 t.nextLine();
-                System.out.println("!!!Digite uma opção válida!!!");
+                System.err.println("!!!Digite uma opção válida!!!");
             }
         }
     }
