@@ -28,7 +28,7 @@ public class TelaClientes {
                 resposta = 4;
             }
             switch (resposta) {
-                case 1 :
+                case 1 -> {
                     System.out.println("esse cliente e uma pessoa fisica ou juridica?");
                     var tipoPessoa = this.lerTipoPessoa();
                     String razaoSocial = "";
@@ -79,17 +79,19 @@ public class TelaClientes {
                         Endereco endereco = new Endereco(logradouro, numeroCasa, complemento, bairro, cidade, uf, cep);
                         this.cadastrarCliente(nome, tipoDocumento, documento, endereco);
                     }
-                    break;
-                case 2 :
+                }
+                case 2 -> {
                     System.out.println("lista de clientes");
                     this.listarClientes();
-                    break;
-                case 0 :
+                }
+                case 0 -> {
                     System.out.println("retornando a tela principal");
                     return;
-                default :
+                }
+                default->{
                     System.out.println("Opcao invalida, digite novamente.");
                     break;
+                }
             }
         }
 

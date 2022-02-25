@@ -22,29 +22,32 @@ public class TelaPrincipal {
                 resposta = 4;
             }
             switch (resposta) {
-                case 1 :
+                case 1 -> {
                     System.out.println("apresentando a tela de veiculos");
                     TelaVeiculos telaVeiculos = new TelaVeiculos();
                     telaVeiculos.MostrarTelaVeiculos();
-                    break;
-                case 2 :
-                    System.out.println("apresentando a tela de clientes");
-                    TelaClientes telaClientes = new TelaClientes();
-                    telaClientes.MostrarTelaClientes();
-                    break;
-                case 3 :
-                      System.out.println("apresentando a tela de locacoes");
+                }
+                case 2 -> {
+
+                System.out.println("apresentando a tela de clientes");
+                TelaClientes telaClientes = new TelaClientes();
+                telaClientes.MostrarTelaClientes();
+                }
+                case 3 -> {
+                        System.out.println("apresentando a tela de locacoes")
+                    ;
                     TelaLocacoes telaLocacoes = new TelaLocacoes();
                     telaLocacoes.MostrarTelaLocacoes();
-                    break;
-                case 0 :
+                }
+                case 0 ->{
                     System.out.println("encerrando o programa...");
                     decisao = false;
                     t.close();
-                    break;
-                default:
+                }
+                default ->{
                     System.out.println("Opcao invalida, digite novamente.");
                     break;
+                }
             }
         }
     }

@@ -47,7 +47,7 @@ public class Locacao {
         this.dataEntrega = dataEntrega;
         Float diferenca = kmAtual.floatValue() - veiculo.getQuilometragem().floatValue();
         BigDecimal diarias = new BigDecimal((numeroDiarias));
-        BigDecimal valorDiaria = new BigDecimal(veiculo.getValorDiaria().toString());
+        BigDecimal valorDiaria = new BigDecimal(veiculo.getValorDiaria());
         BigDecimal km = new BigDecimal(diferenca.toString());
         BigDecimal valorKm = new BigDecimal(veiculo.getValorKmRodado());
         this.valor = diarias.multiply(valorDiaria).add(km.multiply(valorKm));

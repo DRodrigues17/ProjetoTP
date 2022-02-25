@@ -27,7 +27,7 @@ public class TelaVeiculos {
                 resposta = 4;
             }
             switch (resposta) {
-                case 1 :
+                case 1 -> {
                     System.out.println("qual a placa do carro?");
                     String placa = this.lerString();
                     System.out.println("qual a marca do carro?");
@@ -44,17 +44,21 @@ public class TelaVeiculos {
                     System.out.println("os tipos de carro sao  HATCH, SEDAN, SUV, PICKUP e COUPE");
                     var tipoCarro = this.lerTipoCarro();
                     this.cadastrarVeiculo(placa, marca, modelo, quilometragem, valorKmRodado, valorDiaria, tipoCarro);
-                    break;
-                case 2 :
+
+                }
+                case 2 -> {
                     System.out.println("lista de veiculos");
                     this.listarVeiculos();
                     break;
-                case 0 :
+                }
+                case 0 -> {
                     System.out.println("retornando a tela principal");
                     return;
-                default :
+                }
+                default -> {
                     System.out.println("Opcao invalida, digite novamente.");
                     break;
+                }
             }
         }
     }

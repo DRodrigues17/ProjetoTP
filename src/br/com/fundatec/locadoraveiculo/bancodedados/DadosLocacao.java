@@ -1,6 +1,5 @@
 package br.com.fundatec.locadoraveiculo.bancodedados;
 
-import br.com.fundatec.locadoraveiculo.model.Cliente;
 import br.com.fundatec.locadoraveiculo.model.Locacao;
 import java.util.LinkedList;
 import java.util.List;

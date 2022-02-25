@@ -10,6 +10,7 @@ import br.com.fundatec.locadoraveiculo.model.Veiculo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -17,6 +18,8 @@ import java.util.Scanner;
 public class TelaLocacoes {
 
     private Scanner t = new Scanner(System.in);
+    DadosVeiculos dadosVeiculos = DadosVeiculos.criar();
+    DadosClientes dadosClientes = DadosClientes.criar();
     private DadosLocacao dadosLocacao = DadosLocacao.criar();
     public void MostrarTelaLocacoes() {
         boolean decisao = true;
@@ -34,117 +37,154 @@ public class TelaLocacoes {
                 resposta = 4;
             }
             switch (resposta) {
-                case 1 :
+                case 1 -> {
                     this.cadastrarLocacao();
-                    break;
-                case 2 :
-                   this.encerrarLocacao();
-                   encerrarLocacao();
-                    break;
-                case 3 :
+                }
+                case 2 -> {
+                    this.encerrarLocacao();
+                }
+                case 3 ->{
                     this.listarLocacoes();
-                    break;
-                case 0 :
+                }
+                case 0 -> {
                     System.out.println("retornando a tela principal");
                     return;
-                default :
+                }
+                default -> {
                     System.out.println("Opcao invalida, digite novamente.");
                     break;
+                }
             }
         }
     }
-
     public void cadastrarLocacao() {
         Veiculo veiculos = selecionarVeiculo();
-        Cliente clientes = selecionarCliente();
-        System.out.println("Diga a data de locacao (YYYY-MM-DD)");
-        String data = this.lerString();
-        LocalDate dataLocacao = this.lerLocalDate(data);
-        dadosLocacao.adicionar(new Locacao(clientes, veiculos, dataLocacao));
+        if (veiculos != null) {
+            Cliente clientes = selecionarCliente();
+            if (clientes != null) {
+                System.out.println("Diga a data de locacao (YYYY-MM-DD)");
+                LocalDate dataLocacao = this.lerLocalDate();
+                dadosLocacao.adicionar(new Locacao(clientes, veiculos, dataLocacao));
+            }
+        }
     }
     public void encerrarLocacao(){
         Locacao locacao = selecionarLocacao();
-        System.out.println("qual a data de entrega (YYYY-MM-DD)");
-        String data = this.lerString();
-        LocalDate dataEntrega = this.lerLocalDate(data);
-        System.out.println("diga a atual quilometragem?");
-        Float kmAtual = this.lerFloat();
-        locacao.encerrar( dataEntrega, kmAtual);
-
+        if (locacao != null) {
+            if (locacao.getSituacaoLocacao() == SituacaoLocacao.ENCERRADA) {
+                System.out.println("selecione outra, pois essa ja foi encerrada");
+            } else {
+                System.out.println("qual a data de entrega (YYYY-MM-DD)");
+                LocalDate dataEntrega = this.lerLocalDateEntrega();
+                System.out.println("diga a atual quilometragem?");
+                Float kmAtual = this.lerFloat();
+                locacao.encerrar(dataEntrega, kmAtual);
+            }
+        }
     }
     private Veiculo selecionarVeiculo() {
-        DadosVeiculos dadosVeiculos = DadosVeiculos.criar();
+        boolean teste = true;
         List<Veiculo> veiculos = dadosVeiculos.getVeiculos();
         if (veiculos.isEmpty()) {
             System.out.println("Ainda não foram cadastrados Veiculos");
         } else {
-            for (int i = 1; i <= veiculos.size(); i++) {
-                Veiculo veiculo = veiculos.get(i - 1);
-                System.out.println(String.format(i + "-> "+ veiculo.toString()));
+            while (teste) {
+                for (int i = 1; i <= veiculos.size(); i++) {
+                    Veiculo veiculo = veiculos.get(i - 1);
+                    System.out.println(String.format(i + "-> " + veiculo.toString()));
+                }
+                System.out.println("Selecione um veículo.");
+                int veiculoSelecionado = this.lerInt();
+                int tamanhoLista = 0;
+                for (Veiculo elemento : dadosVeiculos.getVeiculos()) {
+                    tamanhoLista++;
+                }
+                if (tamanhoLista < veiculoSelecionado) {
+                    System.err.println("opcao invalida");
+                } else {
+                    dadosVeiculos.getVeiculoId(veiculoSelecionado - 1);
+                    System.out.println("o veiculo foi selecionado");
+                    return veiculos.get(veiculoSelecionado - 1);
+                }
             }
         }
-        System.out.println("Selecione um veículo.");
-        int veiculoSelecionado = this.lerInt();
-        dadosVeiculos.getVeiculoId(veiculoSelecionado);
-        System.out.println("o veiculo foi selecionado");
-        return veiculos.get(veiculoSelecionado);
+        return  null;
     }
-
     private Cliente selecionarCliente() {
-        DadosClientes dadosClientes = DadosClientes.criar();
+        boolean teste = true;
         List<Cliente> clientes = dadosClientes.getClientes();
         if (clientes.isEmpty()) {
             System.out.println("Ainda nao foram cadastrados clientes");
         } else {
-            for (int i = 1; i <= clientes.size(); i++) {
-                Cliente cliente = clientes.get(i - 1);
-                System.out.println(String.format(i + "-> "+ cliente.toString()));
+            while (teste) {
+                for (int i = 1; i <= clientes.size(); i++) {
+                    Cliente cliente = clientes.get(i - 1);
+                    System.out.println(String.format(i + "-> " + cliente.toString()));
+                }
+                System.out.println("Indique o cliente que realizara a locação.");
+                int clienteSelecionado = this.lerInt();
+                int tamanhoLista = 0;
+                for ( Cliente elemento : dadosClientes.getClientes()) {
+                    tamanhoLista++;
+                }
+                if (tamanhoLista < clienteSelecionado) {
+                    System.err.println("opcao invalida");
+                } else {
+                    dadosClientes.getClienteId(clienteSelecionado - 1);
+                    System.out.println("o cliente foi selecionado");
+                    return clientes.get(clienteSelecionado - 1);
+                }
             }
         }
-        System.out.println("Indique o cliente que realizara a locação.");
-        int cliente = this.lerInt();
-        dadosClientes.getClienteId(cliente);
-        System.out.println("o cliente foi selecionado");
-        return clientes.get(cliente);
+        return null;
     }
-
     private Locacao selecionarLocacao() {
-        DadosLocacao dadosLocacao = DadosLocacao.criar();
         List<Locacao> locacoes = dadosLocacao.getLocacoes();
         if (locacoes.isEmpty()) {
-            System.out.println("Ainda nao foram cadastradas locacoes");
+            System.err.println("Ainda não foram cadastradas locacoes");
         } else {
             for (int i = 1; i <= locacoes.size(); i++) {
                 Locacao locacao = locacoes.get(i - 1);
-                System.out.println(String.format(i + "-> "+ locacao.toString()));
+                System.out.println(String.format(i + "-> " + locacao.toString()));
             }
+            System.out.println("selecione a locacao a ser encerrada");
+            int locacaoSelecionada = this.lerInt();
+            dadosLocacao.getLocacaoId(locacaoSelecionada - 1);
+            System.out.println("a locacao foi selecionada");
+            return locacoes.get(locacaoSelecionada - 1);
         }
-        System.out.println("selecione a locacao a ser encerrada");
-        int locacao = this.lerInt();
-        dadosLocacao.getLocacaoId(locacao);
-        System.out.println("a locacao foi selecionada");
-        return locacoes.get(locacao);
+        return null;
     }
-
     private void listarLocacoes() {
-        DadosLocacao dadosLocacao = DadosLocacao.criar();
         List<Locacao>  locacoes = dadosLocacao.getLocacoes();
         if (locacoes.isEmpty()) {
             System.out.println("Ainda não foram cadastradas locacoes");
         } else {
             for (int i = 1; i <= locacoes.size(); i++) {
                 Locacao locacao = locacoes.get(i - 1);
-                System.out.println(String.format("(%s) %s", i, locacao));
+                System.out.println(String.format(i + "-> " + locacao));
             }
         }
     }
-    private LocalDate lerLocalDate(String dataLocacao){
+    private LocalDate lerLocalDate(){
         while (true) {
             try {
+                String dataLocacao = t.next();
                 return LocalDate.parse(dataLocacao);
-            } catch (InputMismatchException excecao) {
+            } catch (DateTimeParseException excecao) {
                 t.nextLine();
-                System.err.println("digite uma data valida");
+                System.err.println("!!!Digite uma data válida!!!");
+            }
+        }
+    }
+    private LocalDate lerLocalDateEntrega(){
+        while (true) {
+            try {
+                String dataEntrega = t.next();
+                return LocalDate.parse(dataEntrega);
+            } catch (DateTimeParseException excecao) {
+                t.nextLine();
+                System.err.println("!!!Digite uma data válida!!!");
             }
         }
     }
@@ -158,7 +198,7 @@ public class TelaLocacoes {
             }
         }
     }
-    private float lerFloat() {
+    private Float lerFloat() {
         while (true) {
             try {
                 return t.nextFloat();
@@ -168,15 +208,4 @@ public class TelaLocacoes {
             }
         }
     }
-    private String lerString(){
-        while (true) {
-            try {
-                return t.next();
-            } catch (InputMismatchException excecao) {
-                t.nextLine();
-                System.err.println("!!!Digite uma opção válida!!!");
-            }
-        }
-    }
-
 }
